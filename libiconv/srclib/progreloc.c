@@ -192,6 +192,8 @@ static char *
 find_executable (const char *argv0)
 {
 #if defined WINDOWS_NATIVE
+  (void)maybe_executable;	// to remove a warning.
+
   /* Native Windows only.
      On Cygwin, it is better to use the Cygwin provided /proc interface, than
      to use native Windows API and cygwin_conv_to_posix_path, because it

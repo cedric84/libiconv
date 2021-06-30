@@ -24687,7 +24687,7 @@ else
 fi
 WOE32DLL=$is_woe32dll
 
-if test $is_woe32dll = yes; then
+if test $is_woe32dll = yes && [[ "$host_os" != mingw* ]]; then
   DLL_VARIABLE='__declspec (dllimport)'
 else
   DLL_VARIABLE=

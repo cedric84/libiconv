@@ -860,7 +860,7 @@ int main (int argc, char* argv[])
 #if ENABLE_NLS
   bindtextdomain("libiconv",relocate(LOCALEDIR));
 #endif
-  textdomain("libiconv");
+  (void)textdomain("libiconv");
   /* No need to invoke the gnulib function stdopen() here, because
      (1) the only file descriptor allocations done by this program are
          fopen(...,"r"),

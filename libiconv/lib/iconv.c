@@ -172,9 +172,15 @@ static const struct stringpool2_t stringpool2_contents = {
 };
 #define stringpool2 ((const char *) &stringpool2_contents)
 static const struct alias sysdep_aliases[] = {
+#ifdef _WIN64
+#define long uintptr_t
+#endif
 #define S(tag,name,encoding_index) { (int)(long)&((struct stringpool2_t *)0)->stringpool_##tag, encoding_index },
 #include "aliases2.h"
 #undef S
+#ifdef _WIN64
+#undef long
+#endif
 };
 #ifdef __GNUC__
 __inline
@@ -444,6 +450,9 @@ void iconvlist (int (*do_one) (unsigned int namescount,
  * Instead of strings, it contains offsets into stringpool and stringpool2.
  */
 static const unsigned short all_canonical[] = {
+#ifdef _WIN64
+#define long uintptr_t
+#endif
 #if defined _AIX
 # include "canonical_sysaix.h"
 #elif defined hpux || defined __hpux
@@ -485,6 +494,9 @@ static const unsigned short all_canonical[] = {
 # include "canonical_local_syssolaris.h"
 #else
 # include "canonical_local.h"
+#endif
+#ifdef _WIN64
+#undef long
 #endif
 };
 
