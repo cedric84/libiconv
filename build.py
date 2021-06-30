@@ -167,10 +167,20 @@ class host_github_macos_t(host_clg_macos_t):
 
 
 
+#---Define the hosts---#
+host_names	= {
+	"clg-pandeb9"	: host_clg_pandeb9_t,
+	"clg-freebsd64"	: host_clg_freebsd64_t,
+	"clg-macos"		: host_clg_macos_t,
+	"github-linux"	: host_github_linux_t,
+	"github-macos"	: host_github_macos_t,
+}
+
 #---Parse the command line---#
 parser	= argparse.ArgumentParser()
 parser.add_argument("host"
 	, type			= str
+	, choices		= host_names.keys()
 	, help			= "the name of the host this script is running on."
 )
 parser.add_argument("--install_pfx"
@@ -186,15 +196,6 @@ parser.add_argument("--build_shared_libs"
 user_args	= parser.parse_args()
 
 #---Create the host---#
-host_names	= {
-	"clg-pandeb9"	: host_clg_pandeb9_t,
-	"clg-freebsd64"	: host_clg_freebsd64_t,
-	"clg-macos"		: host_clg_macos_t,
-	"github-linux"	: host_github_linux_t,
-	"github-macos"	: host_github_macos_t,
-}
-if (user_args.host not in host_names):
-	raise RuntimeError("\"" + user_args.host + "\" is not a valid host.")
 host	= host_names[user_args.host](user_args)
 
 #---Build all---#
